@@ -1,0 +1,26 @@
+# Vercel bundles the directory you deploy, and it does NOT read .gitignore.
+# Without this, the 5 GB .venv and the 545 MB dataset get uploaded.
+
+.venv/
+venv/
+env/
+data/
+datasets/
+checkpoints/
+runs/
+*.zip
+*.tar.gz
+
+# root-level duplicate model - only website/cat_dog_model.pth is needed
+/cat_dog_model.pth
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

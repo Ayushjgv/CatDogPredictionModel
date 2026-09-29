@@ -22,7 +22,7 @@ from pathlib import Path
 
 import torch
 import torch.nn as nn
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 from torchvision import transforms
 
 MODEL_PATH = Path(__file__).resolve().parent / "cat_dog_model.pth"
@@ -136,4 +136,7 @@ def load_image(source: bytes | io.BytesIO) -> Image.Image:
     if image.width * image.height > 40_000_000:
         raise InvalidImageError("Image resolution is too large to process.")
 
-    return image.convert("RGB")
+    # Phone cameras store portrait shots as landscape pixels plus an EXIF
+    # "rotate me" tag. PIL does not apply it, so a sideways animal would reach
+    # the model unless we transpose it here.
+    return ImageOps.exif_transpose(image).convert("RGB")

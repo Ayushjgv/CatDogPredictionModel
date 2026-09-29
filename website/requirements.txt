@@ -1,6 +1,18 @@
---extra-index-url https://download.pytorch.org/whl/cu124
+# Cloud-deployable requirements for the web app.
+#
+# CPU-only PyTorch, pinned deliberately:
+#  - The default PyPI `torch` Linux wheel bundles CUDA and is 529 MB - it alone
+#    exceeds serverless function limits and would never fit.
+#  - The CPU build (176 MB) is fetched from the download.pytorch.org index.
+#  - +cpu is a PEP 440 local version, so WITHOUT the == pins, pip's resolver
+#    would silently prefer PyPI's higher-numbered (but huge) torch 2.14.0.
+#
+# Local GPU training uses the CUDA build in ../requirements.txt instead.
 
-torch>=2.4.0
-torchvision>=0.19.0
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==2.9.1+cpu
+torchvision==0.24.1+cpu
 pillow>=10.0.0
 flask>=3.0.0
+gunicorn>=21.2.0
