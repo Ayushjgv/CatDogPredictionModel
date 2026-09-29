@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cat or Dog Classifier</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="glow glow--one"></div>
+  <div class="glow glow--two"></div>
+
+  <main class="shell">
+    <header class="masthead">
+      <span class="badge">
+        <span class="badge__dot"></span>
+        PyTorch &middot; Custom CNN
+      </span>
+      <h1>Cat&nbsp;or&nbsp;Dog<span class="accent">?</span></h1>
+      <p class="lede">
+        Upload a photo and the trained convolutional network decides &mdash; returning a
+        label with its confidence score.
+      </p>
+    </header>
+
+    <section class="panel">
+      <div id="dropzone" class="dropzone" tabindex="0" role="button"
+           aria-label="Upload an image of a cat or a dog">
+        <input type="file" id="file-input" accept="image/*" hidden />
+
+        <div class="dropzone__empty" id="dz-empty">
+          <svg class="dropzone__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3.5 15v3.5A1.5 1.5 0 0 0 5 20h14a1.5 1.5 0 0 0 1.5-1.5V15"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+          <h2>Drop an image here</h2>
+          <p>or <span class="link">browse your files</span></p>
+          <p class="hint">JPG, PNG, GIF, WEBP or BMP &middot; up to 8&nbsp;MB</p>
+        </div>
+
+        <div class="dropzone__preview" id="dz-preview" hidden>
+          <img id="preview-img" alt="Selected image preview" />
+          <div class="dropzone__meta">
+            <span id="preview-name"></span>
+            <button type="button" class="ghost-btn" id="clear-btn">Choose another</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="primary-btn" id="predict-btn" disabled>
+        <span class="primary-btn__label">Predict</span>
+        <span class="spinner" hidden></span>
+      </button>
+
+      <p class="error" id="error-msg" hidden></p>
+    </section>
+
+    <section class="result" id="result" hidden aria-live="polite">
+      <div class="verdict" id="verdict">
+        <span class="verdict__emoji" id="verdict-emoji"></span>
+        <div>
+          <p class="verdict__eyebrow">Prediction</p>
+          <h3 class="verdict__label" id="verdict-label"></h3>
+        </div>
+        <p class="verdict__score" id="verdict-score"></p>
+      </div>
+
+      <div class="meters" id="meters"></div>
+    </section>
+
+    <footer class="footer">
+      <span id="device-info">Loading model&hellip;</span>
+      <span class="footer__sep">&middot;</span>
+      <span>Trained on the Cats vs. Dogs dataset</span>
+    </footer>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

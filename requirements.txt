@@ -1,0 +1,13 @@
+# PyTorch with CUDA 12.4 support (Install using: pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124)
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch>=2.4.0
+torchvision>=0.19.0
+
+# Image processing & Computer Vision utilities
+pillow>=10.0.0
+numpy>=1.26.0
+
+# Metrics, visualization, and progress bar
+matplotlib>=3.8.0
+scikit-learn>=1.4.0
+tqdm>=4.66.0
